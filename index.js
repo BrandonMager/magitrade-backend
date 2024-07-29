@@ -4,10 +4,11 @@ const { MongoClient } = require("mongodb")
 const app = express()
 const cors = require("cors")
 const dotenv = require('dotenv')
+const { resetTickerCollection } = require("./script")
 
 dotenv.config()
 
-const port = process.env.PORT || 5100
+const port = process.env.PORT || 5200
 app.use(cors())
 app.use(express.json())
 
@@ -24,6 +25,10 @@ client.connect(err => {
 
 const db = client.db("findata")
 
+app.post("/", (req, res) => {
+
+})
+
 app.get('/user/:userId', async (req, res) => {
     const { userId} = req.params
     const item =  await db.collection('Users').findOne({
@@ -35,6 +40,11 @@ app.get('/user/:userId', async (req, res) => {
     }
 
     return res.json(item)
+})
+
+app.get('/reset', async (req, res) => {
+    await resetTickerCollection(db)
+    return res.status(200)
 })
 
 app.listen(port, () => {
