@@ -1,0 +1,25 @@
+import userModel, { UserType } from "../models/User"
+
+class UserRepository {
+
+    async createUser(data: UserType){
+        console.log(data)
+        const newUser = new userModel(data)
+        return await newUser.save()
+    }
+    
+    async getUserByUserId(userId){
+        return await userModel.find({
+            userId: userId
+        }).exec()
+    }
+
+    async updatePurchases(userId, purchase, shares){ 
+        const user = await userModel.find({
+            userId: userId
+        }).exec()
+    
+    }
+}
+
+export default new UserRepository();

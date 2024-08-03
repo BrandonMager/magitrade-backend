@@ -1,13 +1,13 @@
 import { model, Document, Schema } from "mongoose"
 
 interface Purchase extends Document {
-    price: number,
-    shares: number
+    price: Schema.Types.Decimal128
+    shares: Schema.Types.Decimal128
 }
 
 const PurchaseSchema = new Schema<Purchase>({
-    price: { type: "Number", required: true },
-    shares: { type: "Number", required: true },
+    price: { type: Schema.Types.Decimal128, required: true },
+    shares: { type: Schema.Types.Decimal128, required: true },
 })
 
 interface Entry extends Document {
@@ -20,7 +20,7 @@ const EntrySchema = new Schema<Entry>({
     purchases: { type: [PurchaseSchema], required: false}
 })
 
-interface UserType extends Document{
+export interface UserType extends Document{
     userId: string,
     stocksOwned: Entry[],
 }
@@ -31,6 +31,6 @@ const UserSchema = new Schema<UserType>({
 
 })
 
-const userModel = model<UserType>('User', UserSchema)
+const userModel = model<UserType>('User', UserSchema, "Users")
 export default userModel
 
