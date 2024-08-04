@@ -3,6 +3,7 @@ import bodyParser from 'body-parser'
 
 import mongoose from "mongoose"
 import UserRepository from "../repositories/User"
+import AccountRepository from "../repositories/Account"
 import dotenv from "dotenv"
 
 dotenv.config()
@@ -23,6 +24,18 @@ app.post('/api/createUser', async (req, res) => {
     const data = req.body
     try {
         const newUser = await UserRepository.createUser(data)
+        res.status(201).json(newUser)
+    } catch (err){
+        console.log(err.message)
+        res.status(400).send(err.message)
+    }
+
+})
+
+app.post('/api/createAccount', async (req, res) => {
+    const data = req.body
+    try {
+        const newUser = await AccountRepository.createAccount(data)
         res.status(201).json(newUser)
     } catch (err){
         console.log(err.message)

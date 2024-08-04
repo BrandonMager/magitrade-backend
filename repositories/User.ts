@@ -5,7 +5,7 @@ class UserRepository {
     async createUser(data: UserType){
         console.log(data)
         const exists = await this.getUserByUserId(data.userId)
-        if(exists){
+        if(exists.length > 0){
             throw Error("User already exists!")
         }
 
