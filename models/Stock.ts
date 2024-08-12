@@ -17,4 +17,5 @@ const StockSchema = new Schema<StockInterface>({
 
 })
 
-export default StockSchema
+const stockModel = model<StockInterface>("Ticker", StockSchema, "Ticker")
+export default stockModel
